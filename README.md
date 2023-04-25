@@ -27,19 +27,19 @@ L'application </span><span style = "font-size:16px; font-weight:bold;" >TarkovTo
 
 | Couleurs | Hex                                                              |
 |----------| ---------------------------------------------------------------- |
-| Grey     | ![#3F3D40](https://via.placeholder.com/10/FF7F50?text=+) #3F3D40 |
-| Noir     | ![#0D0D0D](https://via.placeholder.com/10/F5DEB3?text=+) #0D0D0D |
-| Or       | ![#D9BC66](https://via.placeholder.com/10/FFE5B4?text=+) #D9BC66 |
-| Marron   | ![#A68A56](https://via.placeholder.com/10/808000?text=+) #A68A56 |
-| Beige    | ![#BF9460](https://via.placeholder.com/10/808000?text=+) #BF9460 |
+| Grey     | ![#3F3D40](https://via.placeholder.com/10/3F3D40?text=+) #3F3D40 |
+| Noir     | ![#0D0D0D](https://via.placeholder.com/10/0D0D0D?text=+) #0D0D0D |
+| Or       | ![#D9BC66](https://via.placeholder.com/10/D9BC66?text=+) #D9BC66 |
+| Marron   | ![#A68A56](https://via.placeholder.com/10/A68A56?text=+) #A68A56 |
+| Beige    | ![#BF9460](https://via.placeholder.com/10/BF9460?text=+) #BF9460 |
 
 
 ## Statut de développement
 
 
 ### Importantes
-| Pages        |Statut |Date debut|Date fin|
-|--------------|-------|----------|--------|
+| Pages        |Statut |
+|--------------|-------|
 | Home         |  ❌  |
 | Item         |  ❌  |
 | Items        |  ❌  |
@@ -47,8 +47,8 @@ L'application </span><span style = "font-size:16px; font-weight:bold;" >TarkovTo
 
 ### Secondaire
 
-| Pages                     |Statut |Date debut|Date fin|
-|---------------------------|-------|----------|--------|
+| Pages                     |Statut |
+|---------------------------|-------|
 |Page 404                   |  ❌  |
 |Page 403                   |  ❌  |
 
