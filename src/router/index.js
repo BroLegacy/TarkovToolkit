@@ -13,8 +13,9 @@ const routes = [
     component: ItemList,
   },
   {
-    path: '/item',
-    component: Item,
+    path: '/item/:id',
+    name: 'Item',
+    component: Item
   }
 ]
 
