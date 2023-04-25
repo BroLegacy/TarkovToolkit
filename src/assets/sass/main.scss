@@ -1,0 +1,15 @@
+@import "variables";
+@import "nav";
+@import "reset";
+@import "pages/ItemListe";
+
+body{
+  background-color: $background-color;
+  #app{
+    .ios{
+      .ion-page{
+        margin-bottom: 53px;
+      }
+    }
+  }
+}

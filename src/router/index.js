@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import Home from "@/views/Home.vue";
-import Items from "@/views/Items.vue";
 import Item from "@/views/Item.vue";
+import ItemList from "@/views/ItemList.vue";
 
 const routes = [
   {
@@ -9,8 +9,8 @@ const routes = [
     component: Home,
   },
   {
-    path: '/items',
-    component: Items,
+    path: '/search',
+    component: ItemList,
   },
   {
     path: '/item',
