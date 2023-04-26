@@ -5,24 +5,21 @@
                 <ion-buttons slot="start">
                     <ion-back-button defaultHref="/" />
                 </ion-buttons>
-                <ion-title>{{ item.name }}</ion-title>
+                <ion-title>Details de l'item</ion-title>
             </ion-toolbar>
         </ion-header>
 
         <ion-content class="ion-padding">
-            <ion-spinner v-if="loading"></ion-spinner>
-
-            <ion-card v-if="!loading && item">
-                <img :src="item.inspectImageLink" alt="Item image" />
+            <ion-card>
+                <img :src="items.inspectImageLink" alt="Item image" />
 
                 <ion-card-header>
-                    <ion-card-title>{{ item.name }}</ion-card-title>
+                    <ion-card-title>{{  }}</ion-card-title>
                 </ion-card-header>
 
                 <ion-card-content>
-                    <p>{{ item.description }}</p>
-                    <p>Category: {{ item.category.name }}</p>
-                    <p>Trader price: {{ item.traderPrice }}</p>
+                    <p>Category: {{ items.category.name }}</p>
+                    <p>Trader price: {{  }}</p>
                     <p>Flea market price: {{}}</p>
                 </ion-card-content>
             </ion-card>
@@ -54,41 +51,46 @@ export default {
     },
     data() {
         return {
-            item: null,
-            loading: true,
+            items: {},
         };
     },
-    async created() {
-        const itemId = this.$route.params.id;
-        const cachedItem = localStorage.getItem(`item-${itemId}`);
-        if (cachedItem) {
-            this.item = JSON.parse(cachedItem);
-        } else {
-            try {
+    methods: {
+        async fetchItems() {
+            const cachedItems = localStorage.getItem('items');
+            if (cachedItems) {
+                this.items = JSON.parse(cachedItems).find(
+                    (items) => items.id === this.$route.params.id
+                );
+            } else {
                 const query = `
-          query {
-            item(id: "${itemId}" lang : fr) {
-            id
-            name
-            wikiLink
-            avg24hPrice
-            inspectImageLink
-            category {
+        query {
+          items(lang : fr) {
+          id
               name
-            }
-            }
-          }`;
-                const response = await axios.post("https://api.tarkov.dev/graphql", {
-                    query: query
-                });
-                this.item = response.data.data.item;
-                localStorage.setItem(`item-${itemId}`, JSON.stringify(this.item));
-            } catch (error) {
-                console.error(`Error fetching item ${itemId}:`, error);
-            } finally {
-                this.loading = false;
-            }
+              wikiLink
+              avg24hPrice
+              inspectImageLink
+              category {
+              id
+                name
+              }
         }
-    }
+        }`;
+                try {
+                    const response = await axios.post("https://api.tarkov.dev/graphql", {
+                        query: query,
+                    });
+                    const itemsData = response.data.data.items;
+                    localStorage.setItem("items", JSON.stringify(itemsData));
+                    this.items = itemsData.find((items) => items.item.id === this.$route.params.id);
+                } catch (error) {
+                    console.error("Error fetching items:", error);
+                }
+            }
+        },
+    },
+    async created() {
+        await this.fetchItems();
+    },
 };
 </script>

@@ -122,11 +122,14 @@ export default {
       query {
         items(lang : fr) {
           id
-          name
-          inspectImageLink
-          category {
-            id
-          }
+              name
+              wikiLink
+              avg24hPrice
+              inspectImageLink
+              category {
+              id
+                name
+              }
         }
       }`;
                 try {
