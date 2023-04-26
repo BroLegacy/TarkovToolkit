@@ -11,7 +11,7 @@ const routes = [
     component: Home,
   },
   {
-    path: '/search',
+    path: '/item',
     component: ItemList,
   },
   {

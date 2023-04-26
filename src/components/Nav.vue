@@ -2,9 +2,9 @@
     <div class="nav-container">
         <ul>
             <li>
-                <router-link to="/search">
+                <router-link to="/item">
                     <img
-                        v-if="route.path === '/search'"
+                        v-if="route.path === '/item'"
                         src="../assets/img/search-active.svg"
                         alt="icon search active"
                     />

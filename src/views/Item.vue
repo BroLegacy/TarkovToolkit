@@ -22,12 +22,12 @@
                     <p>Category: {{ items.category.name }}</p>
                     <a :href="items.wikiLink" target="_blank">WIKI</a>
                     <ion-list>
-                        <ion-list-header>Prix:</ion-list-header>
-                        <ion-label v-for="price in items.sellFor">
-                            <ion-item>
+                        <ion-list-header>Vente:</ion-list-header>
+                        <ion-item v-for="price in items.sellFor">
+                            <ion-label>
                                 {{ price.vendor.name + ": " + price.price + " " + price.currency }}
-                            </ion-item>
-                        </ion-label>
+                            </ion-label>
+                        </ion-item>
                     </ion-list>
                 </ion-card-content>
             </ion-card>
