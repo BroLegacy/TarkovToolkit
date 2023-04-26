@@ -9,7 +9,7 @@
         <ion-content class="itemliste-container">
             <ion-searchbar v-model="searchQuery" @ionChange="updateDisplayedItems()" placeholder="Search items"></ion-searchbar>
             <ion-item>
-                <ion-label>Category</ion-label>
+                <ion-label>Categories</ion-label>
                 <ion-select v-model="selectedCategory" placeholder="Select category" @ionChange="updateDisplayedItems()">
                     <ion-select-option value="">All</ion-select-option>
                     <ion-select-option

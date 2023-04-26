@@ -9,7 +9,7 @@
         <ion-content>
             <ion-searchbar v-model="searchQuery" placeholder="Search ammo"></ion-searchbar>
             <ion-item>
-                <ion-label>Caliber</ion-label>
+                <ion-label>Calibre</ion-label>
                 <ion-select v-model="selectedCaliber" placeholder="Select caliber">
                     <ion-select-option value="">All</ion-select-option>
                     <ion-select-option v-for="caliber in calibers" :value="caliber" :key="caliber">
@@ -18,7 +18,7 @@
                 </ion-select>
             </ion-item>
             <ion-list v-if="!loading">
-                <ion-item v-for="ammo in filteredAmmo" :key="ammo.id" button lines="none">
+                <ion-item v-for="ammo in filteredAmmo" :key="ammo.id" button lines="none" @click="navigateToAmmo(ammo.item.id)">
                     <ion-label>{{ ammo.item.name }}</ion-label>
                 </ion-item>
             </ion-list>
@@ -110,6 +110,9 @@ export default {
                 }
             }
         },
+        navigateToAmmo(ammoId) {
+            this.$router.push({ name: "Ammo", params: { id: ammoId } });
+        }
     },
     async created() {
         await this.fetchAmmo();
