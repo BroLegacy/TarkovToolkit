@@ -3,28 +3,36 @@
         <ion-header>
             <ion-toolbar>
                 <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/search"></ion-back-button>
+                    <ion-back-button defaultHref="/" />
                 </ion-buttons>
                 <ion-title>{{ item.name }}</ion-title>
             </ion-toolbar>
         </ion-header>
-        <ion-content>
-            <ion-card>
-                <img :src="item.inspectImageLink" :alt="item.name" />
+
+        <ion-content class="ion-padding">
+            <ion-spinner v-if="loading"></ion-spinner>
+
+            <ion-card v-if="!loading && item">
+                <img :src="item.inspectImageLink" alt="Item image" />
+
                 <ion-card-header>
-                    <ion-card-subtitle>{{ item.category.name }}</ion-card-subtitle>
                     <ion-card-title>{{ item.name }}</ion-card-title>
                 </ion-card-header>
+
                 <ion-card-content>
-                    <!-- afficher plus d'informations ici si nécessaire -->
+                    <p>{{ item.description }}</p>
+                    <p>Category: {{ item.category.name }}</p>
+                    <p>Trader price: {{ item.traderPrice }}</p>
+                    <p>Flea market price: {{}}</p>
                 </ion-card-content>
             </ion-card>
         </ion-content>
     </ion-page>
 </template>
 
+
 <script>
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent } from "@ionic/vue";
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonSpinner } from "@ionic/vue";
 import axios from "axios";
 
 export default {
@@ -41,11 +49,13 @@ export default {
         IonCardHeader,
         IonCardSubtitle,
         IonCardTitle,
-        IonCardContent
+        IonCardContent,
+        IonSpinner
     },
     data() {
         return {
-            item: null
+            item: null,
+            loading: true,
         };
     },
     async created() {
@@ -57,14 +67,15 @@ export default {
             try {
                 const query = `
           query {
-            item(id: "${itemId}") {
-              id
+            item(id: "${itemId}" lang : fr) {
+            id
+            name
+            wikiLink
+            avg24hPrice
+            inspectImageLink
+            category {
               name
-              inspectImageLink
-              category {
-                id
-                name
-              }
+            }
             }
           }`;
                 const response = await axios.post("https://api.tarkov.dev/graphql", {
@@ -74,6 +85,8 @@ export default {
                 localStorage.setItem(`item-${itemId}`, JSON.stringify(this.item));
             } catch (error) {
                 console.error(`Error fetching item ${itemId}:`, error);
+            } finally {
+                this.loading = false;
             }
         }
     }

@@ -120,7 +120,7 @@ export default {
                 this.loading = true;
                 const query = `
       query {
-        items {
+        items(lang : fr) {
           id
           name
           inspectImageLink
@@ -145,7 +145,7 @@ export default {
         async fetchCategories() {
             const query = `
     query {
-      itemCategories {
+      itemCategories (lang : fr) {
         id
         name
       }
