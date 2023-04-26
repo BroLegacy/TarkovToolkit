@@ -18,9 +18,17 @@
                 </ion-card-header>
 
                 <ion-card-content>
+                    <p>Nom: {{ items.shortName }}</p>
                     <p>Category: {{ items.category.name }}</p>
-                    <p>Trader price: {{  }}</p>
-                    <p>Flea market price: {{}}</p>
+                    <a :href="items.wikiLink" target="_blank">WIKI</a>
+                    <ion-list>
+                        <ion-list-header>Prix:</ion-list-header>
+                        <ion-label v-for="price in items.sellFor">
+                            <ion-item>
+                                {{ price.vendor.name + ": " + price.price + " " + price.currency }}
+                            </ion-item>
+                        </ion-label>
+                    </ion-list>
                 </ion-card-content>
             </ion-card>
         </ion-content>
@@ -29,12 +37,28 @@
 
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonSpinner } from "@ionic/vue";
+import {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonBackButton,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardContent,
+    IonSpinner,
+    IonLabel, IonItem
+} from "@ionic/vue";
 import axios from "axios";
 
 export default {
     name: "Item",
     components: {
+        IonItem, IonLabel,
         IonPage,
         IonHeader,
         IonToolbar,
@@ -64,18 +88,25 @@ export default {
             } else {
                 const query = `
         query {
-          items(lang : fr) {
+        items(lang : fr) {
           id
-              name
-              wikiLink
-              avg24hPrice
-              inspectImageLink
+          name
+          shortName
+          wikiLink
+          inspectImageLink
+          sellFor {
+              price
+              currency
+              vendor {
+                name
+              }
+            }
               category {
               id
                 name
               }
         }
-        }`;
+      }`;
                 try {
                     const response = await axios.post("https://api.tarkov.dev/graphql", {
                         query: query,

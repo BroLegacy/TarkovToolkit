@@ -122,10 +122,16 @@ export default {
       query {
         items(lang : fr) {
           id
-              name
-              wikiLink
-              avg24hPrice
-              inspectImageLink
+          name
+          wikiLink
+          inspectImageLink
+          sellFor {
+              price
+              currency
+              vendor {
+                name
+              }
+            }
               category {
               id
                 name
